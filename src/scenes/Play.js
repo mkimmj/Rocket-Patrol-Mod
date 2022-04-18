@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         this.load.image('shot', './assets/shot.png');
         this.load.image('bee', './assets/bee.png');
         this.load.image('sky', './assets/sky.png');
+        this.load.image('skyAdd', './assets/skyAdd.png');
         this.load.image('fly', './assets/fly.png');
 
         // load spritesheet
@@ -23,6 +24,7 @@ class Play extends Phaser.Scene {
 
         // place tile sprite
         this.sky = this.add.tileSprite(0, 0, 640, 480, 'sky').setOrigin(0, 0);
+        this.skyAdd = this.add.tileSprite(0, 0, 640, 480, 'skyAdd').setOrigin(0, 0);
 
         // blue UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x6495ed).setOrigin(0, 0);
@@ -123,6 +125,7 @@ class Play extends Phaser.Scene {
         }
 
         this.sky.tilePositionX -= 2;
+        this.skyAdd.tilePositionX -=1;
 
         ++this.t;
         if(this.t%60 == 0 && !this.gameOver){
