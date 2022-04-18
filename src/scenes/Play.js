@@ -11,6 +11,7 @@ class Play extends Phaser.Scene {
 
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosionF', './assets/explosionF.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
       }
     create() {
         //init music
@@ -54,6 +55,11 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
             frameRate: 30
         });
+        this.anims.create({
+            key: 'explodeF',
+            frames: this.anims.generateFrameNumbers('explosionF', { start: 0, end: 9, first: 0}),
+            frameRate: 30
+        });
 
         // initialize score
         this.p1Score = 50;
@@ -63,7 +69,7 @@ class Play extends Phaser.Scene {
 
         // display score
         let scoreConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Arial',
             fontSize: '28px',
             backgroundColor: '#F3B141',
             color: '#843605',
@@ -90,7 +96,7 @@ class Play extends Phaser.Scene {
 
         // timer
         let timeConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Arial',
             fontSize: '28px',
             backgroundColor: '#F3B141',
             color: '#843605',
@@ -151,7 +157,7 @@ class Play extends Phaser.Scene {
         }
         if(this.checkCollision(this.p1Rocket,  this.fly)){
             this.p1Rocket.reset();
-            this.shipExplode(this.fly);
+            this.shipExplodeF(this.fly);
         }
     }
     checkCollision(rocket, ship) {
@@ -182,6 +188,22 @@ class Play extends Phaser.Scene {
 
         this.sound.play('sfx_explosion');
     }
+    shipExplodeF(ship) {
+        // temporarily hide ship
+        ship.alpha = 0;
+        // create explosion sprite at ship's position
+        let boom = this.add.sprite(ship.x, ship.y, 'explosionF').setOrigin(0, 0);
+        boom.anims.play('explodeF');             // play explode animation
+        boom.on('animationcomplete', () => {    // callback after anim completes
+          ship.reset();                         // reset ship position
+          ship.alpha = 1;                       // make ship visible again
+          boom.destroy();                       // remove explosion sprite
+        });       
+        // score add and repaint
+        this.p1Score += ship.points;
+        this.scoreLeft.text = this.p1Score;
 
+        this.sound.play('sfx_explosion');
+    }
 }
   
