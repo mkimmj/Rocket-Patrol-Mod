@@ -9,7 +9,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_explosion', './assets/explode.mp3');
         this.load.audio('shoot', './assets/shoot.mp3');
 
-        this.load.image('background', './assets/menuBackground.png');
+        this.load.image('background', './assets/menuBG.png');
     }
     create() {
       
@@ -29,11 +29,11 @@ class Menu extends Phaser.Scene {
         }
 
         //show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'POLLEN PATROL', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use mouse to move & left click to fire', menuConfig).setOrigin(0.5);
+        //this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'POLLEN PATROL', menuConfig).setOrigin(0.5);
+       // this.add.text(game.config.width/2, game.config.height/2, 'Use mouse to move & left click to fire', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#cddcfc';
         menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+        //this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
         
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
